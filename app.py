@@ -17,7 +17,7 @@ import json
 
 if not firebase_admin._apps:
     if "FIREBASE_CONFIG" in st.secrets:
-        firebase_config = json.loads(st.secrets["FIREBASE_CONFIG"])
+        firebase_config = st.secrets["FIREBASE_CONFIG"]
         cred = credentials.Certificate(firebase_config)
     else:
         cred = credentials.Certificate("firebase_admin_sdk.json")
