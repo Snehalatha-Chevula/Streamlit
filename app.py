@@ -13,9 +13,14 @@ import firebase_admin
 from firebase_admin import credentials, auth, firestore
 import requests
 from urllib.parse import urlencode
+import json
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate("firebase_admin_sdk.json")
+    if "FIREBASE_CONFIG" in st.secrets:
+        firebase_config = json.loads(st.secrets["FIREBASE_CONFIG"])
+        cred = credentials.Certificate(firebase_config)
+    else:
+        cred = credentials.Certificate("firebase_admin_sdk.json")
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
